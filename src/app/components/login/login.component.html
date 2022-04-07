@@ -44,3 +44,39 @@
 
 </div></div>
 
+<div class="container">
+    <div class="main">
+        
+    <div class="card border-2 shadow-lg  border-1 text-white" style="width: 24rem;background-color: midnightblue; border-radius: 20px;height: 29rem;">
+        <h1 class="text-center">LOGIN PAGE</h1>
+        <div class="card-body">
+            <form [formGroup]="LoginForm" class=" m-3" (ngSubmit)="loginUser()">
+                <div class="form-group">
+                  <label >Enter Your Username/Email</label>
+                  <input type="email" autocomplete="off" formControlName="username" class="form-control" required id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+                  <small class="text-danger" *ngIf="LoginForm.get('username')?.touched
+                  && LoginForm.get('username')?.hasError('required')">name is required</small>               
+                 </div>
+                
+                  <div class="form-group mt-5 mb-3">
+                  <label for="exampleInputPassword1">Enter  Password</label>
+                  <input type="password" autocomplete="off" formControlName="password" class="form-control px-6 rounded-lg "  required placeholder="Enter Your Password">
+                  <small 
+                    *ngIf="LoginForm.get('password')?.touched &&
+                    LoginForm.get('password')?.hasError('required')"
+                    class=" text-danger "> Password is required
+                </small>
+                <small
+                    *ngIf="LoginForm.get('password')?.touched &&
+                    LoginForm.get('password')?.hasError('minlength')"
+                    class="text-danger">Password length
+                    minimum 5 characters
+                </small>
+                </div>
+                
+                <button type="submit" [disabled]="LoginForm.invalid"  class="btn submit btn-success mx-5 justify-content-center align mt-1 w-50 fw-bolder ">Submit</button>
+              </form>
+        </div>
+      </div>
+</div>
+</div>

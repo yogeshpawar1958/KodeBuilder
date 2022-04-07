@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup ,FormBuilder,FormControl, Validators} from '@angular/forms';
 import { Router } from '@angular/router';
  import Swal from 'sweetalert2';
+ import { DataServiceService } from 'src/app/services/data-service.service';
 
 @Component({
   selector: 'app-login',
@@ -14,7 +15,8 @@ export class LoginComponent implements OnInit {
 password:any;
   constructor(
     private router:Router,
-    private fb:FormBuilder
+    private fb:FormBuilder,
+    private dataService:DataServiceService
   ) { }
 
   LoginForm= this.fb.group ({
@@ -32,15 +34,11 @@ password:any;
   })
 
 
-profile=[
-  {userName:'yogesh',email:'yog@gmail.com',pass:'12345'},
-  {userName:'rajesh',email:'rajesh@gmail.com',pass:'12345'},
-  {userName:'gaurav',email:'gaurav@gmail.com',pass:'12345'},
-  {userName:'Ganesh',email:'ganesh@gmail.com',pass:'12345'}
-]
+profile=this.dataService.profile
 
 
   ngOnInit(): void {
+
   }
 
 
@@ -52,6 +50,11 @@ let mapdata=this.profile.find((cur,index)=>{
   return ((this.name==cur.userName ||this.name==cur.email)&& this.password==cur.pass)
 })
 
+for(let i=0;i<this.profile.length;i++){
+  if((this.name==this.profile[i].userName ||this.name==this.profile[i].email)&& this.password==this.profile[i].pass){
+    this.dataService.profile[i].isLogin=true;
+  }
+}
 if(mapdata!=undefined){
   Swal.fire({
     position: 'top-end',
